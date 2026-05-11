@@ -1,0 +1,78 @@
+backend:
+  name: github
+  repo: Jose-Joell/BioFusion
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "configuracion"
+    label: "Configuración General"
+    files:
+      - name: "general"
+        label: "Datos Generales"
+        file: "data/general.json"
+        fields:
+          - { label: "Número de WhatsApp", name: "whatsapp", widget: "string", hint: "Formato: 18091234567 (sin + ni espacios)" }
+          - { label: "Correo Electrónico", name: "email", widget: "string" }
+          - { label: "Dirección", name: "direccion", widget: "string" }
+
+  - name: "hero"
+    label: "Sección Inicio (Hero)"
+    files:
+      - name: "hero"
+        label: "Hero"
+        file: "data/hero.json"
+        fields:
+          - { label: "Subtítulo pequeño", name: "badge", widget: "string" }
+          - { label: "Título línea 1", name: "titulo1", widget: "string" }
+          - { label: "Título línea 2", name: "titulo2", widget: "string" }
+          - { label: "Título línea 3 (dorado/cursiva)", name: "titulo3", widget: "string" }
+          - { label: "Descripción", name: "descripcion", widget: "text" }
+          - { label: "Stat 1 - Número", name: "stat1num", widget: "string" }
+          - { label: "Stat 1 - Etiqueta", name: "stat1label", widget: "string" }
+          - { label: "Stat 2 - Número", name: "stat2num", widget: "string" }
+          - { label: "Stat 2 - Etiqueta", name: "stat2label", widget: "string" }
+
+  - name: "nosotros"
+    label: "Sección Nosotros"
+    files:
+      - name: "nosotros"
+        label: "Nosotros"
+        file: "data/nosotros.json"
+        fields:
+          - { label: "Imagen del equipo/laboratorio", name: "imagen", widget: "image", required: false }
+          - { label: "Título", name: "titulo", widget: "string" }
+          - { label: "Párrafo 1", name: "parrafo1", widget: "text" }
+          - { label: "Párrafo 2", name: "parrafo2", widget: "text" }
+
+  - name: "catalogo"
+    label: "Catálogo de Productos"
+    label_singular: "Producto"
+    folder: "data/productos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nombre del producto", name: "nombre", widget: "string" }
+      - { label: "Categoría", name: "categoria", widget: "select", options: ["Línea Capilar", "Shampoos", "Goteros", "Higiene Personal", "Tocador", "Por Mayor"] }
+      - { label: "Descripción", name: "descripcion", widget: "text" }
+      - { label: "Precio / Texto precio", name: "precio", widget: "string", default: "Consultar" }
+      - { label: "Foto del producto", name: "imagen", widget: "image", required: false }
+      - { label: "Etiqueta especial (Nuevo, Popular, Mayoreo...)", name: "badge", widget: "string", required: false }
+      - { label: "Color etiqueta", name: "badge_color", widget: "select", required: false, options: ["dorado", "verde", "verde-oscuro"] }
+
+  - name: "categorias"
+    label: "Categorías"
+    files:
+      - name: "categorias"
+        label: "Categorías"
+        file: "data/categorias.json"
+        fields:
+          - label: "Lista de categorías"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Emoji/Icono", name: "icono", widget: "string" }
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Descripción", name: "descripcion", widget: "text" }
