@@ -920,6 +920,7 @@
       .valores-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -1493,6 +1494,16 @@
     const texto = `Hola Bio Fusión SRL 👋\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No indicado'}\nInterés: ${interes || 'No indicado'}\n\n${mensaje || 'Quisiera más información.'}`;
     window.open(`https://wa.me/18091234567?text=${encodeURIComponent(texto)}`, '_blank');
   });
+
+  if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
 </script>
 </body>
 </html>
