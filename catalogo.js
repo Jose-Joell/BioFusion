@@ -18,12 +18,23 @@ function parseFrontmatter(text) {
   if (!match) return {};
   const yaml = match[1];
   const data = {};
-  yaml.split('\n').forEach(line => {
+  const lines = yaml.split('\n');
+  let currentKey = null;
+
+  lines.forEach(line => {
+    // Si la línea empieza con espacios y hay una clave activa, es continuación
+    if (line.match(/^\s+/) && currentKey) {
+      data[currentKey] += ' ' + line.trim();
+      return;
+    }
     const colonIdx = line.indexOf(':');
     if (colonIdx === -1) return;
     const key = line.slice(0, colonIdx).trim();
     const value = line.slice(colonIdx + 1).trim();
-    if (key) data[key] = value;
+    if (key) {
+      data[key] = value;
+      currentKey = key;
+    }
   });
   return data;
 }
@@ -38,7 +49,7 @@ function crearTarjeta(producto) {
     ? `<span class="producto-badge" style="background:${badgeColor}">${producto.badge}</span>`
     : '';
 
-  const imagenHTML = producto.imagen && producto.imagen !== '/images/untitled.png'
+  const imagenHTML = producto.imagen && !producto.imagen.includes('untitled')
     ? `<img src="${producto.imagen}" alt="${producto.nombre}" style="width:100%;height:100%;object-fit:cover;" />`
     : `<div class="producto-img-placeholder">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
