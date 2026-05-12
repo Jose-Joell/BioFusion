@@ -49,7 +49,7 @@ function crearTarjeta(producto) {
     ? `<span class="producto-badge" style="background:${badgeColor}">${producto.badge}</span>`
     : '';
 
-  const imagenHTML = producto.imagen && !producto.imagen.includes('untitled')
+  const imagenHTML = producto.imagen && producto.imagen.trim() !== ''
     ? `<img src="${producto.imagen}" alt="${producto.nombre}" style="width:100%;height:100%;object-fit:cover;" />`
     : `<div class="producto-img-placeholder">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
